@@ -1,17 +1,14 @@
 package helib
 
-import (
-	"fmt"
-	"testing"
-)
+import "testing"
 
 func TestContext(t *testing.T) {
-	ctx := NewFHEContext()
+	ctx := NewFHEContext(2)
 	defer ctx.Free()
 }
 
 func TestAdd(t *testing.T) {
-	ctx := NewFHEContext()
+	ctx := NewFHEContext(257)
 	defer ctx.Free()
 	arr1 := []int64{1, 2, 5, 1, 2, 5, 1, 2, 5, 3}
 	arr2 := []int64{3, 4, 5, 1, 2, 3, 5, 6, 7, 2}
@@ -27,7 +24,7 @@ func TestAdd(t *testing.T) {
 }
 
 func TestMult(t *testing.T) {
-	ctx := NewFHEContext()
+	ctx := NewFHEContext(257)
 	defer ctx.Free()
 	arr1 := []int64{1, 2, 5, 1, 2, 5, 1, 2, 5, 3}
 	arr2 := []int64{3, 4, 5, 1, 2, 3, 5, 6, 7, 2}
@@ -36,7 +33,6 @@ func TestMult(t *testing.T) {
 	MulCtxs(ctx1, ctx2)
 	res := ctx.DecryptCtx(ctx1)
 	for i := range arr1 {
-		fmt.Printf("%d * %d = %d\n", arr1[i], arr2[i], res[i])
 		if arr1[i]*arr2[i] != res[i] {
 			t.Fatalf("Got %d, expected %d\n", res[i], arr1[i]*arr2[i])
 		}
