@@ -12,8 +12,8 @@ type FHEContext struct {
 }
 
 // NewFHEContext creates a new HELib context
-func NewFHEContext() *FHEContext {
-	return &FHEContext{unsafe.Pointer(C.newFHEContext(C.long(19), C.long(1), C.long(7781), C.long(6), C.long(2), C.long(64)))}
+func NewFHEContext(p int) *FHEContext {
+	return &FHEContext{unsafe.Pointer(C.newFHEContext(C.long(p), C.long(1), C.long(7781), C.long(6), C.long(2), C.long(64)))}
 }
 
 // CtxFromArr creates a context for an array
